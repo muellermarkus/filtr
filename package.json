@@ -14,11 +14,13 @@
   "engines": {
     "node": ">=0.4.8"
   },
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.21.0"
+  },
   "devDependencies": {
-      "mocha": "*"
-    , "chai": "*"
-    , "folio": "0.2.x"
+    "mocha": "*",
+    "chai": "*",
+    "folio": "0.2.x"
   },
   "optionalDependencies": {}
 }

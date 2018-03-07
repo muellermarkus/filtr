@@ -63,6 +63,15 @@ describe('Query', function () {
     Q.test({ a: 5 }, {type: 'single' }).should.be.false;
   });
 
+  it('should parse a complex nested query with dates (4)', function () {
+    var date1 = new Date('December 17, 1995 03:24:00');
+    var date2 = new Date('December 17, 1996 03:24:00');
+    var query = { $and: [{ 'a': { '$gt': date1 } }, { '$or': [ { 'b': 2 }, { 'c': '3' } ] }] }
+      , Q = filtr(query);
+    Q.test({ a: date2, b: 2 }, { type: 'single' }).should.be.true;
+    Q.test({ a: date1 }, {type: 'single' }).should.be.false;
+  });
+
   it('should parse a query for a complex object with a nested array', function () {
     var query = { 'hello.world.one': 'a' }
       , Q = filtr(query);
