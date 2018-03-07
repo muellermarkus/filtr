@@ -42,6 +42,27 @@ describe('Query', function () {
     Q.test([ 1, 2 ], {type: 'single' }).should.be.true;
   });
 
+  it('should parse a $gt query', function () {
+    var query = { 'a': { '$gt': 3 } }
+      , Q = filtr(query);
+    Q.test({ a: 5 }, { type: 'single' }).should.be.true;
+    Q.test({ a: 2 }, {type: 'single' }).should.be.false;
+  });
+
+  it('should parse a complex nested query (2)', function () {
+    var query = { $and: [{ 'a': { '$gt': 3 } }, { '$or': [ { 'b': 2 }, { 'c': '3' } ] }] }
+      , Q = filtr(query);
+    Q.test({ a: 5, b: 2 }, { type: 'single' }).should.be.true;
+    Q.test({ a: 5 }, {type: 'single' }).should.be.false;
+  });
+
+  it('should parse a complex nested query (3)', function () {
+    var query = { 'a': { '$gt': 3 }, '$or': [ { 'b': 2 }, { 'c': '3' } ] }
+      , Q = filtr(query);
+    Q.test({ a: 5, b: 2 }, { type: 'single' }).should.be.true;
+    Q.test({ a: 5 }, {type: 'single' }).should.be.false;
+  });
+
   it('should parse a query for a complex object with a nested array', function () {
     var query = { 'hello.world.one': 'a' }
       , Q = filtr(query);
