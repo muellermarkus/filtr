@@ -55,6 +55,16 @@ describe('comparator', function () {
     comparator.$mod(15, [12, 0]).should.be.false;
   });
 
+  it('$eq should work', function () {
+    comparator.$eq(12,12).should.be.true;
+    comparator.$eq(12,11).should.be.false;
+  });
+
+  it('$eq should work with arrays', function () {
+    comparator.$eq(['a','b','c'], 'b').should.be.true;
+    comparator.$eq(['a','c'], 'b').should.be.false;
+  });
+
   it('$ne should work', function () {
     comparator.$ne(12,12).should.be.false;
     comparator.$ne(12,11).should.be.true;
