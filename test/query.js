@@ -49,6 +49,13 @@ describe('Query', function () {
     Q.test({ a: 2 }, {type: 'single' }).should.be.false;
   });
 
+  it('should parse an $eq incl. $regex query', function () {
+    var query = { 'a': { '$regex': new RegExp('ha'), $options: 'i' } }
+      , Q = filtr(query);
+    Q.test({ a: 'Hans' }, { type: 'single' }).should.be.true;
+    Q.test({ a: 'Huber' }, {type: 'single' }).should.be.false;
+  });
+
   it('should parse a complex nested query (2)', function () {
     var query = { $and: [{ 'a': { '$gt': 3 } }, { '$or': [ { 'b': 2 }, { 'c': '3' } ] }] }
       , Q = filtr(query);
